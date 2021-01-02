@@ -1,4 +1,4 @@
-package logger
+package tinylog
 
 import (
 	"fmt"
