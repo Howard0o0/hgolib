@@ -8,9 +8,9 @@ import (
 
 // logger level
 const (
-	Debug = 0
-	Info
-	Error
+	DebugLevel int = iota
+	InfoLevel
+	ErrorLevel
 )
 
 type loggerset struct {
@@ -28,7 +28,7 @@ func init() {
 	lset.infoLogger = log.New(os.Stdout, "[INFO] ", log.Lshortfile|log.LstdFlags)
 	lset.errorLogger = log.New(os.Stdout, "[ERROR] ", log.Lshortfile|log.LstdFlags)
 
-	lset.logLevel = Debug
+	lset.logLevel = DebugLevel
 }
 
 // SetLevel is function to set log level
@@ -38,21 +38,21 @@ func SetLevel(level int) {
 
 // LogDebug print log content when logLevel <= Debug
 func LogDebug(format string, v ...interface{}) {
-	if lset.logLevel <= Debug {
+	if lset.logLevel <= DebugLevel {
 		lset.debugLogger.Output(2, fmt.Sprintf(format, v...))
 	}
 }
 
 // LogInfo print log content when logLevel <= Info
 func LogInfo(format string, v ...interface{}) {
-	if lset.logLevel <= Info {
+	if lset.logLevel <= InfoLevel {
 		lset.infoLogger.Output(2, fmt.Sprintf(format, v...))
 	}
 }
 
 // LogError print log content when logLevel <= Error
 func LogError(format string, v ...interface{}) {
-	if lset.logLevel <= Error {
+	if lset.logLevel <= ErrorLevel {
 		lset.errorLogger.Output(2, fmt.Sprintf(format, v...))
 		os.Exit(1)
 	}
